@@ -40,7 +40,7 @@ jobs:
           cd riscv-gnu-toolchain
           mkdir -p /opt/riscv
           ./configure --prefix=/opt/riscv
-          make && make linux
+          make -j$(nproc) && make linux -j$(nproc)
           
   
       - name: Save the toolchain to the cache (if necessary)
@@ -64,8 +64,8 @@ jobs:
         run: |
            autoconf
            ./configure --prefix=$RISCV/target
-           make
-           make install
+           make -j$(nproc)
+           make install -j$(nproc)
 
       - name: "Showing content of tests"
         run: |
