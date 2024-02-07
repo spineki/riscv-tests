@@ -22,40 +22,12 @@ jobs:
       - name: Install packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y device-tree-compiler build-essential
-
-      - name: Get the toolchain from cache (if available)
-        id: cache-restore-toolchain
-        uses: actions/cache/restore@v3
-        with:
-          path: /opt/riscv/toolchain
-          key: "toolchain-${{env.TOOLCHAIN_URL}}"
-
-      - if: ${{ steps.cache-restore-toolchain.outputs.cache-hit != 'true' }}
-        name: Download Toolchain (if not cached)
+          sudo apt-get install -y device-tree-compiler build-essential  gcc-riscv64-unknown-elf
+  
+      - name: "Show config"
         run: |
-          mkdir -p /opt/riscv/toolchain
-          wget --progress=dot:giga $TOOLCHAIN_URL -O /tmp/toolchain.tar.gz
-
-      - if: ${{ steps.cache-restore-toolchain.outputs.cache-hit != 'true' }}
-        name: Install Toolchain (if not cached)
-        run: tar zxf /tmp/toolchain.tar.gz --strip-components=1 -C /opt/riscv/toolchain
-
-      - name: Save the toolchain to the cache (if necessary)
-        id: cache-save-toolchain
-        uses: actions/cache/save@v3
-        with:
-          path: /opt/riscv/toolchain
-          key: "toolchain-${{env.TOOLCHAIN_URL}}"
-          
-      - name: 'Exporting RISCV Variable'    
-        run: |
+           ls -lah
            echo "riscv variable: $RISCV"
-           echo "${{ env.RISCV }}" >> $GITHUB_PATH
-           echo "${{ env.RISCV }}/bin" >> $GITHUB_PATH
-      
-      - name: "Show folder structure"
-        run: ls -lah
 
       - name: "Building from repository"
         run: |
