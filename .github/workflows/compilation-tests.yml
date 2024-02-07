@@ -40,7 +40,8 @@ jobs:
           cd riscv-gnu-toolchain
           mkdir /opt/riscv
           ./configure --prefix=/opt/riscv
-          make linux
+          make && make linux
+          
   
       - name: Save the toolchain to the cache (if necessary)
         id: cache-save-toolchain
@@ -62,7 +63,7 @@ jobs:
       - name: "Building from repository"
         run: |
            autoconf
-           ./configure --prefix=$RISCV/target  --enable-linux
+           ./configure --prefix=$RISCV/target
            make
            make install
 
