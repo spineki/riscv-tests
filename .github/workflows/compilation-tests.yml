@@ -38,7 +38,7 @@ jobs:
           cd ..
           git clone https://github.com/riscv/riscv-gnu-toolchain
           cd riscv-gnu-toolchain
-          mkdir /opt/riscv
+          mkdir -p /opt/riscv
           ./configure --prefix=/opt/riscv
           make && make linux
           
