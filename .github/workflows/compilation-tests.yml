@@ -79,7 +79,7 @@ jobs:
       - name: "Compile tests"
         run: |
           mkdir -p compiled_tests
-          python create_tests.py . ./compiled_tests
+          python compile_tests.py . ./compiled_tests
 
       - uses: "actions/upload-artifact@v4"
         with:
