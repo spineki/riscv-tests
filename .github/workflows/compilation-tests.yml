@@ -76,10 +76,7 @@ jobs:
           ls  isa/rv64ui
           echo "-----"
 
-      - name: Archive test logs
-        # Proceed even if there was a failed test
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@v3
+      - uses: "actions/upload-artifact@v4"
         with:
-          name: test-logs
-          path: riscv-tests/debug/logs
+          name: "isa_compiled_test_artifact"
+          path: "isa"
