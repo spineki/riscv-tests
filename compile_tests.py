@@ -8,7 +8,7 @@ import re
 import os
 
 def make_tests(rv_tests_dir, dest_dir):
-    result = subprocess.check_output("riscv64-unknown-elf-objcopy --help", stderr=subprocess.STDOUT)
+    result = subprocess.check_output("/opt/riscv/bin/riscv64-unknown-elf-objcopy --help", stderr=subprocess.STDOUT)
     print("Existence of riscv64-unknown-elf-objcopy", result)
     files = [f for f in os.listdir(rv_tests_dir) 
             if (os.path.isfile(os.path.join(rv_tests_dir, f)) 
@@ -22,7 +22,7 @@ def make_tests(rv_tests_dir, dest_dir):
         filename = f.split("/")[-1]
         print("------------------\n")
         print(filename, end="\n")
-        cmd = "riscv64-unknown-elf-objcopy -O binary " + f + " " + dest_dir + "/" + filename + ".bin"
+        cmd = "/opt/riscv/bin/riscv64-unknown-elf-objcopy -O binary " + f + " " + dest_dir + "/" + filename + ".bin"
         result = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         print(filename, result)
     print(os.listdir(dest_dir))
