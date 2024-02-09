@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-# courtesy of https://github.com/fmash16/riscv_emulator (copy-paste of test.py file to automate test production)
+# courtesy of https://github.com/fmash16/riscv_emulator (modified test.py file to automate tests compilation)
 
+import subprocess
 import sys
 import re
 import os
@@ -22,8 +23,10 @@ def make_tests(rv_tests_dir, dest_dir):
         f = os.path.join(rv_tests_dir, f)
         filename = f.split("/")[-1].split("-")[-1]
         print(filename, end="\n")
-        os.system("riscv64-unknown-elf-objcopy -O binary " +
-                f + " " + dest_dir + filename + ".bin")
+        cmd = "riscv64-unknown-elf-objcopy -O binary " + f + " " + dest_dir + filename + ".bin"
+        result = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        print(filename, result)
+    print(os.listdir(dest_dir))
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
