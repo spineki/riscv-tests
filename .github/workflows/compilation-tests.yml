@@ -76,7 +76,12 @@ jobs:
           ls  isa/rv64ui
           echo "-----"
 
+      - name: "Compile tests"
+        run: |
+          mkdir -p compiled_tests
+          python create_tests.py . ./compiled_tests
+
       - uses: "actions/upload-artifact@v4"
         with:
-          name: "isa_compiled_test_artifact"
-          path: "isa"
+          name: "compiled_test_artifact"
+          path: "compiled_tests"
